@@ -18,6 +18,7 @@ def train(train_img_path, train_gt_path, pths_path, batch_size, lr, num_workers,
 	
 	criterion = Loss()
 	device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+	print(device)
 	model = EAST()
 	data_parallel = False
 	if torch.cuda.device_count() > 1:
@@ -55,8 +56,8 @@ def train(train_img_path, train_gt_path, pths_path, batch_size, lr, num_workers,
 
 
 if __name__ == '__main__':
-	train_img_path = os.path.abspath('../ICDAR_2015/train_img')
-	train_gt_path  = os.path.abspath('../ICDAR_2015/train_gt')
+	train_img_path = os.path.abspath('../data_EAST/train_img')
+	train_gt_path  = os.path.abspath('../data_EAST/train_gt')
 	pths_path      = './pths'
 	batch_size     = 24 
 	lr             = 1e-3
