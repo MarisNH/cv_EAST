@@ -28,6 +28,16 @@ def train(train_img_path, train_gt_path, pths_path, batch_size, lr, num_workers,
 	optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 	scheduler = lr_scheduler.MultiStepLR(optimizer, milestones=[epoch_iter//2], gamma=0.1)
 
+
+	'''Load model checkpoint from PATH'''
+	# checkpoint = torch.load("/data/maris/EAST/pths/east_vgg16.pth")
+	# print(checkpoint.keys())
+	# model.load_state_dict(checkpoint['model_state_dict'])
+	# optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+	# epoch = checkpoint['epoch']
+	# loss = checkpoint['loss']
+	
+
 	for epoch in range(epoch_iter):	
 		model.train()
 		scheduler.step()
@@ -59,7 +69,7 @@ if __name__ == '__main__':
 	train_img_path = os.path.abspath('../data_EAST/train_img')
 	train_gt_path  = os.path.abspath('../data_EAST/train_gt')
 	pths_path      = './pths'
-	batch_size     = 24 
+	batch_size     = 12 
 	lr             = 1e-3
 	num_workers    = 4
 	epoch_iter     = 600
