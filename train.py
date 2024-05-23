@@ -3,6 +3,7 @@ from torch.utils import data
 from torch import nn
 from torch.optim import lr_scheduler
 from dataset import custom_dataset
+from torch.utils.tensorboard import SummaryWriter
 from model import EAST
 from loss import Loss
 import os
@@ -27,7 +28,7 @@ def train(train_img_path, train_gt_path, pths_path, batch_size, lr, num_workers,
 	model.to(device)
 	optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 	scheduler = lr_scheduler.MultiStepLR(optimizer, milestones=[epoch_iter//2], gamma=0.1)
-
+	writer = SummaryWriter()
 
 	'''Load model checkpoint from PATH'''
 	# checkpoint = torch.load("/data/maris/EAST/pths/east_vgg16.pth")
@@ -40,7 +41,6 @@ def train(train_img_path, train_gt_path, pths_path, batch_size, lr, num_workers,
 
 	for epoch in range(epoch_iter):	
 		model.train()
-		scheduler.step()
 		epoch_loss = 0
 		epoch_time = time.time()
 		for i, (img, gt_score, gt_geo, ignored_map) in enumerate(train_loader):
@@ -57,6 +57,7 @@ def train(train_img_path, train_gt_path, pths_path, batch_size, lr, num_workers,
 			print('Epoch is [{}/{}], mini-batch is [{}/{}], time consumption is {:.8f}, batch_loss is {:.8f}'.format(\
               epoch+1, epoch_iter, i+1, int(file_num/batch_size), time.time()-start_time, loss.item()))
 		
+		scheduler.step()
 		print('epoch_loss is {:.8f}, epoch_time is {:.8f}'.format(epoch_loss/int(file_num/batch_size), time.time()-epoch_time))
 		print(time.asctime(time.localtime(time.time())))
 		print('='*50)
@@ -64,15 +65,18 @@ def train(train_img_path, train_gt_path, pths_path, batch_size, lr, num_workers,
 			state_dict = model.module.state_dict() if data_parallel else model.state_dict()
 			torch.save(state_dict, os.path.join(pths_path, 'model_epoch_{}.pth'.format(epoch+1)))
 
+		writer.add_scalar('Loss/train', epoch_loss/int(file_num/batch_size), epoch)
+	writer.close()
+
 
 if __name__ == '__main__':
 	train_img_path = os.path.abspath('../data_EAST/train_img')
 	train_gt_path  = os.path.abspath('../data_EAST/train_gt')
-	pths_path      = './pths/model_x'
+	pths_path      = './pths'
 	batch_size     = 12 
 	lr             = 1e-3
 	num_workers    = 4
-	epoch_iter     = 600
-	save_interval  = 5
+	epoch_iter     = 600  # 600
+	save_interval  = 10   # 5
 	train(train_img_path, train_gt_path, pths_path, batch_size, lr, num_workers, epoch_iter, save_interval)	
 	
