@@ -34,7 +34,8 @@ def eval_model(model_name, test_img_path, submit_path, save_flag=True):
 
 
 if __name__ == '__main__': 
-	model_name = './pths/east_vgg16.pth'
-	test_img_path = os.path.abspath('../ICDAR_2015/test_img')
-	submit_path = './submit'
+	# model_name = './pths/east_vgg16.pth'
+	model_name = '/data/maris/cv_EAST/pths/model_0/model_epoch_600.pth'
+	test_img_path = os.path.abspath('/data/maris/data_EAST/test_img')
+	submit_path = '/data/maris/cv_EAST/submit'
 	eval_model(model_name, test_img_path, submit_path)
