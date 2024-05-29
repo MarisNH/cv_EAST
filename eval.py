@@ -24,7 +24,7 @@ def eval_model(model_name, test_img_path, submit_path, save_flag=True):
 	res = subprocess.getoutput('zip -q submit.zip *.txt')
 	res = subprocess.getoutput('mv submit.zip ../')
 	os.chdir('../')
-	res = subprocess.getoutput('python ./evaluate/script.py –g=./evaluate/gt.zip –s=./submit.zip')
+	res = subprocess.getoutput('python /data/maris/cv_EAST/evaluate/script.py –g=/data/maris/cv_EAST/evaluate/gt.zip –s=/data/maris/cv_EAST/submit.zip')
 	print(res)
 	os.remove('./submit.zip')
 	print('eval time is {}'.format(time.time()-start_time))	
@@ -35,7 +35,7 @@ def eval_model(model_name, test_img_path, submit_path, save_flag=True):
 
 if __name__ == '__main__': 
 	# model_name = './pths/east_vgg16.pth'
-	model_name = '/data/maris/cv_EAST/pths/model_0/model_epoch_600.pth'
-	test_img_path = os.path.abspath('/data/maris/data_EAST/test_img')
+	model_name = '/data/maris/cv_EAST/pths/model_epoch_60.pth'
+	test_img_path = os.path.abspath('/data/maris/data_EAST/test_img2')
 	submit_path = '/data/maris/cv_EAST/submit'
 	eval_model(model_name, test_img_path, submit_path)

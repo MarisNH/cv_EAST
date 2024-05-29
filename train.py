@@ -9,6 +9,8 @@ from loss import Loss
 import os
 import time
 import numpy as np
+# import matplotlib.pyplot as plt
+# from einops import rearrange
 
 
 def train(train_img_path, train_gt_path, pths_path, batch_size, lr, num_workers, epoch_iter, interval):
@@ -44,11 +46,10 @@ def train(train_img_path, train_gt_path, pths_path, batch_size, lr, num_workers,
 		epoch_loss = 0
 		epoch_time = time.time()
 		for i, (img, gt_score, gt_geo, ignored_map) in enumerate(train_loader):
-			start_time = time.time()
+			start_time = time.time()#
 			img, gt_score, gt_geo, ignored_map = img.to(device), gt_score.to(device), gt_geo.to(device), ignored_map.to(device)
 			pred_score, pred_geo = model(img)
 			loss = criterion(gt_score, pred_score, gt_geo, pred_geo, ignored_map)
-			
 			epoch_loss += loss.item()
 			optimizer.zero_grad()
 			loss.backward()
@@ -76,7 +77,7 @@ if __name__ == '__main__':
 	batch_size     = 12 
 	lr             = 1e-3
 	num_workers    = 4
-	epoch_iter     = 600  # 600
+	epoch_iter     = 300  # 600
 	save_interval  = 10   # 5
 	train(train_img_path, train_gt_path, pths_path, batch_size, lr, num_workers, epoch_iter, save_interval)
 	

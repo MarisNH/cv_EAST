@@ -1,3 +1,6 @@
 __pycache__/
 pths/
 runs/
+*.jpg
+*.txt
+*.zip
