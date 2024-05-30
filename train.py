@@ -60,8 +60,8 @@ def train(train_img_path, train_gt_path, pths_path, batch_size, lr, num_workers,
 
 
 if __name__ == '__main__':
-	train_img_path = os.path.abspath('/data/maris/data_EAST/train_img')
-	train_gt_path  = os.path.abspath('/data/maris/data_EAST/train_gt')
+	train_img_path = os.path.abspath('../data_EAST/train_img')
+	train_gt_path  = os.path.abspath('../data_EAST/train_gt')
 	pths_path      = './pths'
 	batch_size     = 12 
 	lr             = 1e-3
