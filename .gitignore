@@ -5,3 +5,4 @@ runs/
 *.txt
 *.zip
 evaluate/gt.zip
+submit*

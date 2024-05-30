@@ -20,13 +20,13 @@ def eval_model(model_name, test_img_path, submit_path, save_flag=True):
 	
 	start_time = time.time()
 	detect_dataset(model, device, test_img_path, submit_path)
-	os.chdir(submit_path)
-	res = subprocess.getoutput('zip -q submit.zip *.txt')
-	res = subprocess.getoutput('mv submit.zip ../')
-	os.chdir('../')
-	res = subprocess.getoutput('python /data/maris/cv_EAST/evaluate/script.py –g=/data/maris/cv_EAST/evaluate/gt.zip –s=/data/maris/cv_EAST/submit.zip')
-	print(res)
-	os.remove('./submit.zip')
+	# os.chdir(submit_path)
+	# res = subprocess.getoutput('zip -q submit.zip *.txt')
+	# res = subprocess.getoutput('mv submit.zip ../')
+	# os.chdir('../')
+	# res = subprocess.getoutput('python /data/maris/cv_EAST/evaluate/script.py –g=/data/maris/cv_EAST/evaluate/gt.zip –s=/data/maris/cv_EAST/submit.zip')
+	# print(res)
+	# os.remove('./submit.zip')
 	print('eval time is {}'.format(time.time()-start_time))	
 
 	if not save_flag:
@@ -35,7 +35,7 @@ def eval_model(model_name, test_img_path, submit_path, save_flag=True):
 
 if __name__ == '__main__': 
 	# model_name = './pths/east_vgg16.pth'
-	model_name = '/data/maris/cv_EAST/pths/model_real_480epochs/model_epoch_480.pth'
-	test_img_path = os.path.abspath('/data/maris/data_EAST/test_img')
-	submit_path = '/data/maris/cv_EAST/submit'
+	model_name = './pths/model_real_480epochs/model_epoch_480.pth'
+	test_img_path = os.path.abspath('../data_EAST/test_img')
+	submit_path = './submit'
 	eval_model(model_name, test_img_path, submit_path)
