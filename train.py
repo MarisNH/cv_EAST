@@ -9,8 +9,6 @@ from loss import Loss
 import os
 import time
 import numpy as np
-# import matplotlib.pyplot as plt
-# from einops import rearrange
 
 
 def train(train_img_path, train_gt_path, pths_path, batch_size, lr, num_workers, epoch_iter, interval):
@@ -31,15 +29,6 @@ def train(train_img_path, train_gt_path, pths_path, batch_size, lr, num_workers,
 	optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 	scheduler = lr_scheduler.MultiStepLR(optimizer, milestones=[epoch_iter//2], gamma=0.1)
 	writer = SummaryWriter()
-
-	'''Load model checkpoint from PATH'''
-	# checkpoint = torch.load("/data/maris/cv_EAST/pths/model_epoch_380.pth")
-	# print(checkpoint.keys())
-	# model.load_state_dict(checkpoint['model_state_dict'])
-	# optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-	# epoch = checkpoint['epoch']
-	# loss = checkpoint['loss']
-
 
 	for epoch in range(epoch_iter):	
 		model.train()
