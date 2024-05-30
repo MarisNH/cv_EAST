@@ -33,7 +33,7 @@ def train(train_img_path, train_gt_path, pths_path, batch_size, lr, num_workers,
 	writer = SummaryWriter()
 
 	'''Load model checkpoint from PATH'''
-	# checkpoint = torch.load("/data/maris/EAST/pths/east_vgg16.pth")
+	# checkpoint = torch.load("/data/maris/cv_EAST/pths/model_epoch_380.pth")
 	# print(checkpoint.keys())
 	# model.load_state_dict(checkpoint['model_state_dict'])
 	# optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
@@ -77,7 +77,7 @@ if __name__ == '__main__':
 	batch_size     = 12 
 	lr             = 1e-3
 	num_workers    = 4
-	epoch_iter     = 300  # 600
+	epoch_iter     = 600  # 600
 	save_interval  = 10   # 5
 	train(train_img_path, train_gt_path, pths_path, batch_size, lr, num_workers, epoch_iter, save_interval)
 	
