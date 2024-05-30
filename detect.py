@@ -182,9 +182,9 @@ def detect_dataset(model, device, test_img_path, submit_path):
 
 if __name__ == '__main__':
 	# img_path    = '../ICDAR_2015/test_img/img_2.jpg'
-	img_path    = '/data/maris/data_EAST/train_img/DJI_20240504053530_0024_D.JPG'
-	model_path  = '/data/maris/cv_EAST/pths/east_vgg16.pth'
-	# model_path  = '/data/maris/cv_EAST/pths/model_0/model_epoch_600.pth'
+	img_path    = '/data/maris/data_EAST/test_img/DJI_0244_1593.jpg'
+	# model_path  = '/data/maris/cv_EAST/pths/east_vgg16.pth'
+	model_path  = '/data/maris/cv_EAST/pths/model_real_480epochs/model_epoch_480.pth'
 	res_img     = './res.bmp'
 	device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 	model = EAST().to(device)
