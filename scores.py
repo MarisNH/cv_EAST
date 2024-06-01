@@ -7,7 +7,7 @@ from sklearn.metrics import auc
 
 
 # define path to ground truth and to predicted data
-INFERENCE_PATH = '/data/maris/cv_EAST/submit_save'
+INFERENCE_PATH = '/data/maris/cv_EAST/submit_plain'
 GROUND_TRUTH_PATH = '/data/maris/data_EAST/test_gt'
 
 

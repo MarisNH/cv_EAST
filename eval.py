@@ -15,7 +15,7 @@ def eval_model(model_name, test_img_path, submit_path, save_flag=True):
 
 	device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 	model = EAST(False).to(device)
-	model.load_state_dict(torch.load(model_name))
+	model.load_state_dict(torch.load(model_name)) 
 	model.eval()
 	
 	start_time = time.time()
@@ -35,7 +35,9 @@ def eval_model(model_name, test_img_path, submit_path, save_flag=True):
 
 if __name__ == '__main__': 
 	# model_name = './pths/east_vgg16.pth'
-	model_name = './pths/model_real_480epochs/model_epoch_480.pth'
-	test_img_path = os.path.abspath('../data_EAST/test_img')
-	submit_path = './submit'
+	model_name = './pths/model_epoch_590.pth'
+	epoch = model_name.split('_')[-1].split('.')[0]
+	PART = 1
+	test_img_path = os.path.abspath(f'../data_EAST/test_img{PART}')
+	submit_path = f'./submit_{epoch}_{PART}'
 	eval_model(model_name, test_img_path, submit_path)

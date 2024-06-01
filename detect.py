@@ -181,12 +181,24 @@ def detect_dataset(model, device, test_img_path, submit_path):
 
 
 if __name__ == '__main__':
-	# img_path    = '../ICDAR_2015/test_img/img_2.jpg'
-	img_path    = '/data/maris/data_EAST/test_img/DJI_0244_1593.jpg'
-	# model_path  = '/data/maris/cv_EAST/pths/east_vgg16.pth'
-	model_path  = '/data/maris/cv_EAST/pths/model_real_480epochs/model_epoch_480.pth'
-	res_img     = './res.bmp'
+	img_path    = '../data_EAST/test_img/DJI_0351_5133.jpg'
+	# img_path    = '../data_EAST/test_img/DJI_0244_1593.jpg'
+	img_name    = img_path.split("/")[-1].split('.')[0]
+
+	if True:
+		model_path  = './pths/model_600/model_epoch_500.pth'
+		model_name  = "".join(model_path.split("/")[-2].split('_'))
+		epoch       = model_path.split("_")[-1].split('.')[0]
+		res_img     = f'./result_imgs/res-{model_name}-{epoch}-{img_name}.bmp'
+	else:
+		model_path  = './pths/east_vgg16.pth'
+		model_name = "vgg16"
+		epoch       = ""
+		res_img     = f'./result_imgs/res-{model_name}-{img_name}.bmp'
+	
+
 	device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
 	model = EAST().to(device)
 	model.load_state_dict(torch.load(model_path))
 	model.eval()
@@ -195,5 +207,3 @@ if __name__ == '__main__':
 	boxes = detect(img, model, device)
 	plot_img = plot_boxes(img, boxes)	
 	plot_img.save(res_img)
-
-

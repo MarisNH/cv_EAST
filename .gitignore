@@ -6,3 +6,5 @@ runs/
 *.zip
 evaluate/gt.zip
 submit*
+detections/
+*.bmp
